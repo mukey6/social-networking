@@ -1,14 +1,14 @@
-const {User}=require('../model/User')
+const {User}=require('../model')
 
 const userController = {
 
 getAllUsers(req, res){
     User.find({})
-    // .populate({
-    //     path: 'thought',
-    //     select: '-__v'
-    //   })
-    //   .select('-__v')
+    .populate({
+        path: 'thoughts',
+        select: '-__v'
+      })
+      .select('-__v')
     .then((dbUser)=>{
     res.json(dbUser)
     })
@@ -19,11 +19,11 @@ getAllUsers(req, res){
 }, 
 getUserById(req, res){
     User.findOne({_id: params.id})
-    // .populate({
-    //     path: 'thought',
-    //     select: '-__v'
-    //   })
-    //   .select('-__v')
+    .populate({
+        path: 'thoughts',
+        select: '-__v'
+      })
+      .select('-__v')
     .then(dbUser => {
         if (!dbUser) {
           res.status(404).json({ message: 'No user found with this id!' });
@@ -37,7 +37,8 @@ getUserById(req, res){
       });
 },
 createUser({body},res){
-    User.create({body})
+    console.log('line 41',body)
+    User.create(body)
     .then((dbUser)=>{
         res.json(dbUser)
         })

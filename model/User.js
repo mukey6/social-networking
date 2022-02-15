@@ -12,14 +12,14 @@ const UserSchema = new Schema(
       type: String,
       required: true,
       unique: true,
-      //   match:[/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, 'enter a valid email']
-      validate: {
-        validator: function (email) {
-          let regex = "/^([a-z0-9_.-]+)@([da-z.-]+).([a-z.]{2,6})$/";
-          return email.match(regex);
-        },
-        // validate email---- test it out(both)
-      },
+        match:[/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, 'enter a valid email']
+    //   validate: {
+    //     validator: function (email) {
+    //       let regex = "/^([a-z0-9_.-]+)@([da-z.-]+).([a-z.]{2,6})$/";
+    //       return email.match(regex);
+    //     },
+    //     // validate email---- test it out(both)
+    //   },
     },
     thoughts: [
       {
@@ -47,4 +47,4 @@ UserSchema.virtual("friendCount").get(function () {
 const User = model('User', UserSchema);
 // why is this not exporting 
 
-module.exports = User;
+module.exports = {User};
