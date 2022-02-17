@@ -28,8 +28,8 @@ const UserSchema = new Schema(
       },
     ],
      // self reference by using 'this'
-    friends: [this],
-  },
+     friends: [{ type: Schema.Types.ObjectId, ref: 'User' }]
+      },
   {
     toJSON: {
       virtuals: true,

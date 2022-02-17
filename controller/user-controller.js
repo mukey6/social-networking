@@ -13,11 +13,10 @@ getAllUsers(req, res){
     res.json(dbUser)
     })
     .catch((err)=>{
-        console.log(err)
         res.status(500).json(err)
     })
 }, 
-getUserById(req, res){
+getUserById({params}, res){
     User.findOne({_id: params.id})
     .populate({
         path: 'thoughts',
@@ -32,18 +31,15 @@ getUserById(req, res){
         res.json(dbUser);
       })
       .catch(err => {
-        console.log(err);
         res.status(500).json(err);
       });
 },
 createUser({body},res){
-    console.log('line 41',body)
     User.create(body)
     .then((dbUser)=>{
         res.json(dbUser)
         })
         .catch((err)=>{
-            console.log(err)
             res.status(500).json(err)
         })
 },
@@ -57,7 +53,6 @@ updateUser({params, body}, res){
         res.json(dbUser);
       })
       .catch(err => {
-        console.log(err);
         res.status(500).json(err);
       });
 },
@@ -71,11 +66,43 @@ deleteUser({ params }, res) {
         res.json(dbUser);
       })
       .catch(err => {
+        res.status(500).json(err);
+      });
+  },
+  addFriend({params}, res){
+console.log('line80 friends', params)
+User.findOneAndUpdate(
+    {_id: params.userId},
+    {$addToSet: {friends: params.friendsId}},
+    {new:true}
+)
+.then((dbFriends)=>{
+    console.log(dbFriends)
+    res.json(dbFriends)
+    // maybe do a findUser by id
+})
+.catch(err => {
+    console.log(err);
+    res.status(500).json(err);
+  });
+  },
+
+  deleteFriend({params}, res){
+      User.findOneAndUpdate(
+          {_id: params.userId},
+          {$pull: {friends: params.friendsId}},
+          {new:true}
+          // waht is validate ??
+      )
+      .then((dbFriends)=>{
+        console.log(dbFriends)
+        res.json(dbFriends)
+    })
+    .catch(err => {
         console.log(err);
         res.status(500).json(err);
       });
   }
-
 }
 
 module.exports=userController

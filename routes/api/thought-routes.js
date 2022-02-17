@@ -15,7 +15,7 @@ router.route('/').get(getAllThought)
 //add thoughts to a user
 router.route('/:userId').post(addThought)
 
-router.route('/:thoughtId').get(getSingleThought).delete(removeThought)
+router.route('/:thoughtId').get(getSingleThought).delete(removeThought).put(updateThought)
 
 // router.route('/:reactionId').get()
 router.route('/:thoughtId/reactions').post(addReaction)
