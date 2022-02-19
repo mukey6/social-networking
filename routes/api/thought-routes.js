@@ -1,28 +1,27 @@
-const router = require('express').Router();
+const router = require("express").Router();
 
 const {
-    getAllThought,
-    addThought,
-    addReaction,
-    removeReaction,
-    removeThought,
-    getSingleThought,
-    updateThought
-} = require('../../controller/thought-controller')
+  getAllThought,
+  addThought,
+  addReaction,
+  removeReaction,
+  removeThought,
+  getSingleThought,
+  updateThought,
+} = require("../../controller/thought-controller");
 
+router.route("/").get(getAllThought);
 
-router.route('/').get(getAllThought)
-//add thoughts to a user
-router.route('/:userId').post(addThought)
+router.route("/:userId").post(addThought);
 
-router.route('/:thoughtId').get(getSingleThought).delete(removeThought).put(updateThought)
+router
+  .route("/:thoughtId")
+  .get(getSingleThought)
+  .delete(removeThought)
+  .put(updateThought);
 
-// router.route('/:reactionId').get()
-router.route('/:thoughtId/reactions').post(addReaction)
-// ^ 
-router.route('/:thoughtId/:reactionId').delete(removeReaction)
-// currently working with htis ^
-// do i have to put in the userID and thought ID to delete a thought? 
-// can i not just use the thought id?
+router.route("/:thoughtId/reactions").post(addReaction);
+// ^
+router.route("/:thoughtId/:reactionId").delete(removeReaction);
 
-module.exports=router
+module.exports = router;

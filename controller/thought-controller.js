@@ -25,10 +25,8 @@ const thoughtController = {
   addThought({ params, body }, res) {
     Thought.create(body)
       .then(({ _id }) => {
-        // why did i destructure this?
         return User.findOneAndUpdate(
           { _id: params.userId },
-          // above line is not working, find out why??
           { $push: { thoughts: _id } },
           { new: true }
         );
@@ -71,9 +69,6 @@ const thoughtController = {
       });
   },
 
-  // updateThought({params}, res){
-  //   Thought.findOneAndUpdate(params)
-  // }
   addReaction({ params, body }, res) {
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
@@ -102,7 +97,6 @@ const thoughtController = {
           res
             .status(404)
             .json({ message: "no thought with reaction found with this id" });
-          // what if i try to delete a reaction that doesn't exist ??
           return;
         }
         res.json(deletedReaction);

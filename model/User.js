@@ -13,13 +13,7 @@ const UserSchema = new Schema(
       required: true,
       unique: true,
         match:[/^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/, 'enter a valid email']
-    //   validate: {
-    //     validator: function (email) {
-    //       let regex = "/^([a-z0-9_.-]+)@([da-z.-]+).([a-z.]{2,6})$/";
-    //       return email.match(regex);
-    //     },
-    //     // validate email---- test it out(both)
-    //   },
+
     },
     thoughts: [
       {
@@ -27,7 +21,6 @@ const UserSchema = new Schema(
         ref: "Thought",
       },
     ],
-     // self reference by using 'this'
      friends: [{ type: Schema.Types.ObjectId, ref: 'User' }]
       },
   {
@@ -45,6 +38,5 @@ UserSchema.virtual("friendCount").get(function () {
 
 
 const User = model('User', UserSchema);
-// why is this not exporting 
 
 module.exports = {User};
