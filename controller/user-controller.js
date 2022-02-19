@@ -92,7 +92,6 @@ User.findOneAndUpdate(
           {_id: params.userId},
           {$pull: {friends: params.friendsId}},
           {new:true}
-          // waht is validate ??
       )
       .then((dbFriends)=>{
         console.log(dbFriends)
